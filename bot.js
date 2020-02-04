@@ -21,12 +21,12 @@ clean = (msg) => {
             var arr = messages.array();
             var toDelete = [];
             for (key in arr) {
-                if (arr[key].content === 'c' ||
-                    arr[key].content === 'clean' ||
+                if (arr[key].content === 'clean' ||
                     arr[key].content === 'pling' ||
                     arr[key].content === 'ping' ||
                     arr[key].content === 'clean' ||
                     arr[key].content.includes('!clean') ||
+                    arr[key].content.includes('!queue') ||
                     arr[key].content.includes('!stats') ||
                     arr[key].content.includes('!play') ||
                     arr[key].content.includes('!stop') ||
@@ -34,12 +34,14 @@ clean = (msg) => {
                     arr[key].content.includes('!np') ||
                     arr[key].content.includes('!pause') ||
                     arr[key].content.includes('!resume') ||
+                    arr[key].content.includes('!leave') ||
                     arr[key].content.includes('!replay') ||
                     arr[key].content.includes('!rank') ||
                     arr[key].content.includes('!levels') ||
                     arr[key].content.includes('!r6tab') ||
                     arr[key].content.includes('!raidbots') ||
                     arr[key].content.includes('^skip') ||
+                    arr[key].content.includes('^queue') ||
                     arr[key].content.includes('^np') ||
                     arr[key].content.includes('^play') ||
                     arr[key].content.includes('^clean') ||
@@ -83,7 +85,7 @@ client.on('message', msg => {
             .setColor(0xFF0000)
             .setDescription('testing');
         msg.channel.send(embed);
-    } else if (msg.content === 'c') {
+    } else if (msg.content === 'clean') {
         if (msg.channel.type === 'text') {
             clean(msg);
         } else {
