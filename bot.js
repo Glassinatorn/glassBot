@@ -18,34 +18,55 @@ clean = (msg) => {
     const collector = msg.channel.createMessageCollector(filter, {time: 15000});
     msg.channel.fetchMessages({limit: 100})
         .then(messages => {
-            var tmp = messages.array();
+            var arr = messages.array();
             var toDelete = [];
-            for(key in tmp) {
-                if (tmp[key].content === 'c' ||
-                    tmp[key].content === 'clean' ||
-                    tmp[key].content === 'pling' ||
-                    tmp[key].content === 'clean' ||
-                    tmp[key].content.includes('!play') ||
-                    tmp[key].content.includes('!clean') ||
-                    tmp[key].content.includes('!stop') ||
-                    tmp[key].content.includes('!resume') ||
-                    tmp[key].content.includes('!replay') ||
-                    tmp[key].content.includes('^play') ||
-                    tmp[key].content.includes('^clean') ||
-                    tmp[key].content.includes('^stop') ||
-                    tmp[key].content.includes('^resume') ||
-                    tmp[key].content.includes('^replay') ||
-                    tmp[key].author.username === 'glassbot' ||
-                    tmp[key].author.username === 'Yui')
+            for (key in arr) {
+                if (arr[key].content === 'c' ||
+                    arr[key].content === 'clean' ||
+                    arr[key].content === 'pling' ||
+                    arr[key].content === 'ping' ||
+                    arr[key].content === 'clean' ||
+                    arr[key].content.includes('!clean') ||
+                    arr[key].content.includes('!stats') ||
+                    arr[key].content.includes('!play') ||
+                    arr[key].content.includes('!stop') ||
+                    arr[key].content.includes('!skip') ||
+                    arr[key].content.includes('!np') ||
+                    arr[key].content.includes('!pause') ||
+                    arr[key].content.includes('!resume') ||
+                    arr[key].content.includes('!replay') ||
+                    arr[key].content.includes('!rank') ||
+                    arr[key].content.includes('!levels') ||
+                    arr[key].content.includes('!r6tab') ||
+                    arr[key].content.includes('!raidbots') ||
+                    arr[key].content.includes('^skip') ||
+                    arr[key].content.includes('^np') ||
+                    arr[key].content.includes('^play') ||
+                    arr[key].content.includes('^clean') ||
+                    arr[key].content.includes('^stop') ||
+                    arr[key].content.includes('^pause') ||
+                    arr[key].content.includes('^resume') ||
+                    arr[key].content.includes('^replay') ||
+                    arr[key].author.username === 'Rythm' ||
+                    arr[key].author.username === 'TabStats' ||
+                    arr[key].author.username === 'Raidbots' ||
+                    arr[key].author.username === 'Yui')
                 {
-                    toDelete.push(tmp[key].id);
-                    console.log(tmp[key].content);
-                    console.log(tmp[key].author.username);
+                    // replace with this one after first cleaning is done
+                    //toDelete.push(arr[key].id);
+                    arr[key].delete()
+                        .then(console.log('deleted message'))
+                        .catch( () => {
+                            if (arr[key].deletable) {
+                                arr[key].delete()
+                                    .then(console.log('deleted message'))
+                                    .catch(console.log('still can not delete'));
+                            }
+                            console.log(arr[key]);
+                        });
                 }
+                //msg.channel.bulkDelete(toDelete);
             }
-            msg.channel.bulkDelete(toDelete, true)
-                .then(console.log('Deleted messages'))
-                .catch(console.error);
         })
         .catch(console.error);
 
