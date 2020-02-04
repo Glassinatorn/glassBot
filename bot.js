@@ -78,20 +78,8 @@ clean = (msg) => {
 }
 
 client.on('message', msg => {
-    if (msg.content === "ping") {
-        msg.reply('pong');
-    } else if (msg.content === 'embed') {
-        const embed = new RichEmbed()
-            .setTitle('A slick little embed')
-            .setColor(0xFF0000)
-            .setDescription('testing');
-        msg.channel.send(embed);
-    } else if (msg.content === 'clean') {
-        if (msg.channel.type === 'text') {
-            clean(msg);
-        } else {
-            msg.reply('Not a channel I can clean');
-        }
+    if (msg.content === 'clean') {
+        clean(msg);
     }
 });
 
