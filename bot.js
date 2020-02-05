@@ -14,8 +14,6 @@ client.on('ready', () => {
 })
 
 clean = (msg) => {
-    const filter = m => m.content.includes('c');
-    const collector = msg.channel.createMessageCollector(filter, {time: 15000});
     msg.channel.fetchMessages({limit: 100})
         .then(messages => {
             var arr = messages.array();
@@ -72,9 +70,6 @@ clean = (msg) => {
             }
         })
         .catch(console.error);
-
-    // placeholder for what to send back
-    return collector.size;
 }
 
 client.on('message', msg => {
@@ -84,4 +79,3 @@ client.on('message', msg => {
 });
 
 client.login(process.env.botToken);
-const hook = new WebhookClient(process.env.hookID, process.env.hookToken);
