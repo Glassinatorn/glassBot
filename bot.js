@@ -4,7 +4,6 @@ const { config } = require('dotenv');
 const { TextChannel, WebhookClient, Client, RichEmbed } = require('discord.js');
 // request package for https://github.com/request/request-promise-native
 const request = require('request-promise-native');
-const cheerio = require('cheerio');
 
 const client = new Client ({
     disableeveryone: true
@@ -80,7 +79,6 @@ clean = (msg) => {
 const getNews = (channel) => {
     request('https://www.gamingna.com/search/r6')
         .then (function (htmlString) {
-            console.log(htmlString);
         })
         .catch(function (err) {
             console.log(err);
