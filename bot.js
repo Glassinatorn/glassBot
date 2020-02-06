@@ -1,7 +1,7 @@
 // package for getting data from dot-files https://www.npmjs.com/package/dotenv
 const {config} = require('dotenv');
 // wrapper for the discord API https://github.com/discordjs/discord.js
-const {Client, RichEmbed} = require('discord.js');
+const {Client} = require('discord.js');
 // request package for https://github.com/request/request-promise-native
 const request = require('request-promise-native');
 // jquery for nodejs https://www.npmjs.com/package/cheerio
@@ -102,8 +102,15 @@ const getNews = (channel) => {
 
                 toReturn.push(item.attribs['href']);
             });
-            let toSend = new RichEmbed(toReturn);
-            channel.send(toSend)
+            channel.send({
+                embed: {
+                    title: 'Gaming news',
+                    fields: [
+                        {name: 'Test1', value: 'test1\ntest2\ntest3\ntest4', inline: true},
+                        {name: 'Test2', value: 'test5\ntest6\ntest7\ntest8', inline: true}
+                    ]
+                }
+            })
                 .then(console.log('sent list'))
                 .catch(console.err);
         })
