@@ -29,6 +29,7 @@ clean = (msg) => {
             //let toDelete = [];
             for (key in arr) {
                 if (arr[key].content === 'clean' ||
+                    arr[key].content === 'news' ||
                     arr[key].content === 'pling' ||
                     arr[key].content === 'ping' ||
                     arr[key].content === 'clean' ||
