@@ -1,5 +1,10 @@
+// package for getting data from dot-files https://www.npmjs.com/package/dotenv
 const { config } = require('dotenv');
+// wrapper for the discord API https://github.com/discordjs/discord.js
 const { TextChannel, WebhookClient, Client, RichEmbed } = require('discord.js');
+// request package for https://github.com/request/request-promise-native
+const request = require('request-promise-native');
+const cheerio = require('cheerio');
 
 const client = new Client ({
     disableeveryone: true
@@ -72,9 +77,22 @@ clean = (msg) => {
         .catch(console.error);
 }
 
+const getNews = (channel) => {
+    request('https://www.gamingna.com/search/r6')
+        .then (function (htmlString) {
+            console.log(htmlString);
+        })
+        .catch(function (err) {
+            console.log(err);
+        })
+
+}
 client.on('message', msg => {
     if (msg.content === 'clean') {
         clean(msg);
+    } else if (msg.content === 'news') {
+        getNews(msg.channel);
+        //https://www.gamingna.com/search/r6
     }
 });
 
