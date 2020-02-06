@@ -60,7 +60,7 @@ clean = (msg) => {
                     arr[key].author.username === 'Rythm' ||
                     arr[key].author.username === 'TabStats' ||
                     arr[key].author.username === 'Raidbots' ||
-                    arr[key].author.username === 'glassBot' ||
+                    arr[key].author.username === 'glassbot' ||
                     arr[key].author.username === 'Yui') {
                     // replace with this one after first cleaning is done
                     //toDelete.push(arr[key].id);
