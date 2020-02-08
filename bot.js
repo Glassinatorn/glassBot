@@ -94,21 +94,22 @@ const getNews = (channel) => {
 
     request(options)
         .then(function (object) {
-            let toReturn = [];
+            let toReturn = "";
 
             object('.out-link').each((i, item) => {
                 if ((i % 2) != 0) {
                     return;
                 }
 
-                toReturn.push(item.attribs['href']);
+                console.log(i);
+                toReturn += item.attribs['title'] + '\n';
+                toReturn += 'https://gamingna.com' + item.attribs['href'];
             });
             channel.send({
                 embed: {
                     title: 'Gaming news',
                     fields: [
-                        {name: 'Test1', value: 'test1\ntest2\ntest3\ntest4', inline: true},
-                        {name: 'Test2', value: 'test5\ntest6\ntest7\ntest8', inline: true}
+                        {name: 'Test1', value: toReturn, inline: true},
                     ]
                 }
             })
@@ -124,6 +125,7 @@ client.on('message', msg => {
         clean(msg);
     } else if (msg.content === 'news') {
         getNews(msg.channel);
+        console.log('test');
         //https://www.gamingna.com/search/r6
     }
 });
