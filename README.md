@@ -6,6 +6,6 @@ masses".
 
 # ToDo:
 - cleaning feature [/]
-- gaming news []
+- gaming news [x]
 - user stats []
 - play music []
