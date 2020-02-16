@@ -84,9 +84,9 @@ clean = (msg) => {
 /*
  * Function to gather and present gaming news
  * */
-const getNews = (channel) => {
+const getNews = (channel, search) => {
     let options = {
-        uri: 'https://www.gamingna.com/search/total war',
+        uri: 'https://www.gamingna.com/search/' + search,
         transform: (body) => {
             return cheerio.load(body);
         }
@@ -95,40 +95,35 @@ const getNews = (channel) => {
     request(options)
         .then(function (object) {
             let tmp = [];
-            let titles = "",
-                links = "";
+            let from = 0;
 
             object('.out-link').each((i, item) => {
+                // jumping to next index as the list has duplicates
                 if ((i % 2) != 0) {
                     return;
                 }
 
-
-                console.log(i);
-                if (i < 5) {
+                if (i < 30) {
                     tmp.push({
-                        name: 'Articles',
-                        value: '[' + item.attribs['title'] + '](https://gamingna.com' + item.attribs['href'] + ')\n\n',
+                        name: 'Article',
+                        value: '[' + item.attribs['title'] +
+                            '](https://gamingna.com' + item.attribs['href'] +
+                            ')\n\n',
                         inline: true
                     })
-
-                    //titles += (item.attribs['title'] + '\n\n');
-                    //links += ('[' + item.attribs['title'] + '](https://gamingna.com' + item.attribs['href'] + ')\n\n');
                 }
             });
             channel.send({
                 embed: {
                     title: 'Gaming news',
-                    fields: tmp //[
-                    //{name: 'Links', value: links, inline: true},
-                    //]
+                    fields: tmp
                 }
             })
-                .then(console.log('sent list'))
+                .then(console.log(from))
                 .catch(console.err);
         })
         .catch(function (err) {
-            console.err;
+            console.log(err);
         })
 }
 client.on('message', msg => {
@@ -136,7 +131,6 @@ client.on('message', msg => {
         clean(msg);
     } else if (msg.content === 'news') {
         getNews(msg.channel);
-        //https://www.gamingna.com/search/r6
     }
 });
 
