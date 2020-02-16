@@ -105,7 +105,7 @@ const getNews = (channel, search) => {
 
                 if (i < 30) {
                     tmp.push({
-                        name: 'Article',
+                        name: 'Article:',
                         value: '[' + item.attribs['title'] +
                             '](https://gamingna.com' + item.attribs['href'] +
                             ')\n\n',
@@ -129,8 +129,16 @@ const getNews = (channel, search) => {
 client.on('message', msg => {
     if (msg.content === 'clean') {
         clean(msg);
-    } else if (msg.content === 'news') {
-        getNews(msg.channel);
+    } else if (msg.content.includes('news')) {
+        let strings = msg.content.split(' '),
+            search = '';
+        for (let i = 0; i < strings.length; i++) {
+            if (i > 0) {
+                search += strings[i] + ' ';
+            }
+        }
+        console.log(search);
+        getNews(msg.channel, search);
     }
 });
 
