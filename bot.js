@@ -34,7 +34,7 @@ clean = (msg) => {
                     "|!resume|!leave|!replay|!rank|!levels|!r6tab|!raidbots" +
                     "|^skip|^queue|^np|^play|^clean|^stop|^pause|^resume" +
                     "|^replay"),
-                    authorExp = new RegExp("Rythm|TabStats|Raidbots|glassBot|" +
+                    authorExp = new RegExp("Rythm|TabStats|Raidbots|glassbot|" +
                         "Yui");
                 if (arr[key].content.match(contentExp) ||
                     arr[key].author.username.match(authorExp)) {
