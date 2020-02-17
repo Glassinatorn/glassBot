@@ -1,3 +1,7 @@
+// package to get paths to programs
+const path = require('path');
+// package to run other programs
+const {spawn} = require('child_process');
 // package for getting data from dot-files https://www.npmjs.com/package/dotenv
 const {config} = require('dotenv');
 // wrapper for the discord API https://github.com/discordjs/discord.js
@@ -101,6 +105,10 @@ const getNews = (channel, search) => {
         .catch(function (err) {
             console.log(err);
         })
+}
+
+const pythonScript = (scriptName) => {
+
 }
 
 client.on('message', msg => {
