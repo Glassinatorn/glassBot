@@ -102,6 +102,7 @@ const getNews = (channel, search) => {
             console.log(err);
         })
 }
+
 client.on('message', msg => {
     if (msg.content === 'clean') {
         clean(msg);
