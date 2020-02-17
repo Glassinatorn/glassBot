@@ -25,44 +25,20 @@ client.on('ready', () => {
 clean = (msg) => {
     msg.channel.fetchMessages({limit: 100})
         .then(messages => {
-            let arr = messages.array();
-            //let toDelete = [];
+            var arr = messages.array();
+            //to use when first cleaning phase is done in all channels
+            //var toDelete = [];
             for (key in arr) {
-                if (arr[key].content === 'clean' ||
-                    arr[key].content === 'news' ||
-                    arr[key].content === 'pling' ||
-                    arr[key].content === 'ping' ||
-                    arr[key].content === 'clean' ||
-                    arr[key].content.includes('!clean') ||
-                    arr[key].content.includes('!queue') ||
-                    arr[key].content.includes('!stats') ||
-                    arr[key].content.includes('!play') ||
-                    arr[key].content.includes('!stop') ||
-                    arr[key].content.includes('!skip') ||
-                    arr[key].content.includes('!np') ||
-                    arr[key].content.includes('!pause') ||
-                    arr[key].content.includes('!resume') ||
-                    arr[key].content.includes('!leave') ||
-                    arr[key].content.includes('!replay') ||
-                    arr[key].content.includes('!rank') ||
-                    arr[key].content.includes('!levels') ||
-                    arr[key].content.includes('!r6tab') ||
-                    arr[key].content.includes('!raidbots') ||
-                    arr[key].content.includes('^skip') ||
-                    arr[key].content.includes('^queue') ||
-                    arr[key].content.includes('^np') ||
-                    arr[key].content.includes('^play') ||
-                    arr[key].content.includes('^clean') ||
-                    arr[key].content.includes('^stop') ||
-                    arr[key].content.includes('^pause') ||
-                    arr[key].content.includes('^resume') ||
-                    arr[key].content.includes('^replay') ||
-                    arr[key].author.username === 'Rythm' ||
-                    arr[key].author.username === 'TabStats' ||
-                    arr[key].author.username === 'Raidbots' ||
-                    arr[key].author.username === 'glassbot' ||
-                    arr[key].author.username === 'Yui') {
-                    // replace with this one after first cleaning is done
+                let contentExp = new RegExp("clean|news|test|clean|pling|ping" +
+                    "|clean|!clean|!queue|stats|!play|!stop|!skip|!np|!pause" +
+                    "|!resume|!leave|!replay|!rank|!levels|!r6tab|!raidbots" +
+                    "|^skip|^queue|^np|^play|^clean|^stop|^pause|^resume" +
+                    "|^replay"),
+                    authorExp = new RegExp("Rythm|TabStats|Raidbots|glassBot|" +
+                        "Yui");
+                if (arr[key].content.match(contentExp) ||
+                    arr[key].author.username.match(authorExp)) {
+                    // replace with this one after first cleaning phase is done
                     //toDelete.push(arr[key].id);
                     arr[key].delete()
                         .then(console.log('deleted message'))
