@@ -108,7 +108,11 @@ const getNews = (channel, search) => {
 }
 
 const pythonScript = (scriptName) => {
-
+    return spawn('python', [
+        "-u",
+        path.join(__dirname, scriptName),
+        "--foo", "test"
+    ])
 }
 
 client.on('message', msg => {
@@ -124,6 +128,29 @@ client.on('message', msg => {
         }
         console.log(search);
         getNews(msg.channel, search);
+        //just a placeholder, will probably be good to make it run predefined
+        //programs later on
+    } else if (msg.content.includes('python')) {
+        const subprocess = pythonScript('example.py');
+
+        subprocess.stdout.on('data', (data) => {
+            msg.channel.send({
+                embed: {
+                    title: 'Python',
+                    fields: [{
+                        name: 'output:',
+                        value: `${data}`,
+                        inline: true
+                    }]
+                }
+            })
+        })
+        subprocess.stderr.on('data', (data) => {
+            console.log(`error: testa`);
+        })
+        subprocess.on('close', () => {
+            console.log('closed');
+        })
     }
 });
 
