@@ -1,6 +1,9 @@
 #! /bin/python3
 
-import sys, getopt, time
+import getopt
+import sys
+import time
+
 
 def main(argv):
     argument = ''
